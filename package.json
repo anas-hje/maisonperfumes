@@ -1,0 +1,60 @@
+{
+  "name": "maison",
+  "version": "0.1.0",
+  "private": true,
+  "engines": {
+    "node": ">=20.9.0"
+  },
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:setup": "./scripts/db-setup.sh",
+    "db:reset": "./scripts/db-setup.sh --reset",
+    "db:stop": "docker compose stop",
+    "db:studio": "prisma studio",
+    "db:migrate": "prisma migrate dev",
+    "postinstall": "prisma generate"
+  },
+  "//overrides": "Forward-pin two transitive deps of the Prisma CLI that carry high-severity advisories. npm's own suggested fix is a breaking downgrade to Prisma 6; these pins keep Prisma 7 and resolve the advisories instead. Neither package is reachable at runtime (this app talks to Postgres via @prisma/client; mysql2 is only bundled for the CLI's multi-database support).",
+  "overrides": {
+    "mysql2": "^3.24.5",
+    "deepmerge-ts": "^8.0.2"
+  },
+  "dependencies": {
+    "@hookform/resolvers": "^5.9.1",
+    "@prisma/adapter-pg": "^7.10.0",
+    "@prisma/client": "^7.10.0",
+    "bcryptjs": "^3.0.3",
+    "date-fns": "^4.4.0",
+    "framer-motion": "^12.42.2",
+    "next": "^16.3.6",
+    "react": "19.2.4",
+    "react-dom": "19.2.4",
+    "react-hook-form": "^7.85.0",
+    "recharts": "^3.10.1",
+    "sonner": "^2.0.8",
+    "zod": "^4.4.3",
+    "zustand": "^5.0.14"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4",
+    "@types/node": "^22.20.4",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@vitejs/plugin-react": "^6.1.1",
+    "dotenv": "^18.0.5",
+    "eslint": "^9",
+    "eslint-config-next": "^16.3.6",
+    "jsdom": "^30.1.1",
+    "prisma": "^7.10.0",
+    "tailwindcss": "^4",
+    "tsx": "^4.23.15",
+    "typescript": "^5",
+    "vitest": "^5.0.1"
+  }
+}
