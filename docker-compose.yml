@@ -1,0 +1,24 @@
+services:
+  postgres:
+    image: postgres:17-alpine
+    container_name: maison-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-maison}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-maison_dev_password}
+      POSTGRES_DB: ${POSTGRES_DB:-maison}
+    ports:
+      # Host port is configurable so a local Postgres on 5432 doesn't block this.
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - maison_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      # The setup script waits on this instead of sleeping a fixed interval.
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-maison} -d ${POSTGRES_DB:-maison}"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+      start_period: 5s
+
+volumes:
+  maison_pgdata:
